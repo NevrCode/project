@@ -25,11 +25,11 @@ class _LoginPageState extends State<LoginPage> {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor:
-          _isLoading ? Colors.white : const Color.fromARGB(255, 255, 250, 250),
+          _isLoading ? Colors.white : const Color.fromARGB(255, 255, 255, 250),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
-                color: Color.fromARGB(255, 247, 130, 130),
+                color: Color.fromARGB(255, 255, 238, 0),
               ),
             )
           : SingleChildScrollView(
@@ -49,9 +49,13 @@ class _LoginPageState extends State<LoginPage> {
                           height: 60,
                         ),
                         // Logo berbentuk lingkaran
+                        Text(
+                          "HeavyHub",
+                          style: TextStyle(
+                              fontFamily: 'Poppins-Bold', fontSize: 30),
+                        ),
 
                         const SizedBox(height: 40),
-
                         // TextField email dengan desain kapsul dan ikon email
                         SizedBox(
                           width: 300,
@@ -60,10 +64,10 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: InputDecoration(
                               labelText: 'E-mail',
                               labelStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 243, 103, 103)),
+                                  color: Color.fromARGB(255, 75, 75, 75)),
                               prefixIcon: const Icon(
                                 Icons.email,
-                                color: Color.fromARGB(255, 247, 129, 129),
+                                color: Color.fromARGB(255, 17, 17, 17),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide:
@@ -72,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 245, 182, 182)),
+                                    color: Color.fromARGB(255, 255, 230, 0)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               border: OutlineInputBorder(
@@ -100,16 +104,15 @@ class _LoginPageState extends State<LoginPage> {
                               iconColor: const Color.fromARGB(26, 168, 73, 73),
                               labelText: 'Password',
                               labelStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 243, 103, 103)),
+                                  color: Color.fromARGB(255, 75, 75, 75)),
                               prefixIcon: const Icon(Icons.lock,
-                                  color: Color.fromARGB(255, 247, 129, 129)),
+                                  color: Color.fromARGB(255, 17, 17, 17)),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _obscureText
                                       ? Icons.visibility_off
                                       : Icons.visibility,
-                                  color:
-                                      const Color.fromARGB(255, 247, 129, 129),
+                                  color: const Color.fromARGB(255, 15, 15, 15),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -124,7 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 245, 182, 182)),
+                                  color: Color.fromARGB(255, 255, 230, 0),
+                                ),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               border: OutlineInputBorder(
@@ -155,8 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'Lupa Password?',
                               style: TextStyle(
-                                  fontFamily: 'Poppins-regular',
-                                  color: Color.fromARGB(255, 235, 109, 109)),
+                                  fontFamily: 'Poppins-Regular',
+                                  color: Color.fromARGB(255, 0, 0, 0)),
                             ),
                           ),
                         ),
@@ -170,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: WidgetStateProperty.all(
                                 const EdgeInsets.fromLTRB(0, 0, 0, 0)),
                             backgroundColor: WidgetStateProperty.all(
-                                const Color.fromARGB(255, 226, 140, 140)),
+                                const Color.fromARGB(255, 255, 238, 0)),
                             elevation: WidgetStateProperty.all(2),
                           ),
                           onPressed: () async {
@@ -179,36 +183,42 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isLoading = true;
                             });
-                            await auth.signInWithPass(email, password);
+                            try {
+                              await auth.signInWithPass(email, password);
 
-                            if (auth.user != null && mounted) {
-                              Provider.of<VehicleProvider>(context,
-                                      listen: false)
-                                  .fetchData();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(seconds: 1),
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 242, 255, 242),
-                                  content: Text(
-                                    'Hi, ${auth.user!.userMetadata?['displayName']}. Selamat Berbelanja',
-                                    style: const TextStyle(
-                                        fontFamily: 'Poppins-regular',
-                                        fontSize: 14,
-                                        color:
-                                            Color.fromARGB(255, 61, 223, 83)),
+                              if (auth.user != null && mounted) {
+                                Provider.of<VehicleProvider>(context,
+                                        listen: false)
+                                    .fetchData();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: const Duration(seconds: 1),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 242, 255, 242),
+                                    content: Text(
+                                      'Hi, ${auth.user!.userMetadata?['displayName']}. Selamat Berbelanja',
+                                      style: const TextStyle(
+                                          fontFamily: 'Poppins-regular',
+                                          fontSize: 14,
+                                          color:
+                                              Color.fromARGB(255, 61, 223, 83)),
+                                    ),
                                   ),
-                                ),
-                              );
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Index()));
+                                );
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Index()));
+                              }
+                            } catch (e) {
+                              Text(e.toString());
                             }
                           },
                           child: const Text(
                             'Login',
-                            style: TextStyle(),
+                            style: TextStyle(
+                                fontFamily: 'Poppins-Regular',
+                                color: Color.fromARGB(255, 20, 20, 20)),
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -224,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Sign Up',
                             style: TextStyle(
                                 fontFamily: 'Poppins-regular',
-                                color: Color.fromARGB(255, 236, 147, 147)),
+                                color: Color.fromARGB(255, 0, 0, 0)),
                           ),
                         ),
 

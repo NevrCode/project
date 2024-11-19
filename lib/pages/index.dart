@@ -18,8 +18,8 @@ const _navBarItems = [
     label: 'Home',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.car_rental),
-    activeIcon: Icon(Icons.car_rental_rounded),
+    icon: Icon(Icons.fire_truck),
+    activeIcon: Icon(Icons.fire_truck),
     label: 'Vehicle',
   ),
   BottomNavigationBarItem(
@@ -47,13 +47,28 @@ class _IndexState extends State<Index> {
   Widget build(BuildContext context) {
     pageController = PageController(initialPage: 0);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 237, 73),
+        leading: Icon(Icons.factory_sharp),
+        title: Text(
+          _tabIndex == 0
+              ? "HeavyHub"
+              : _tabIndex == 1
+                  ? "Vehicle"
+                  : _tabIndex == 2
+                      ? "Orders"
+                      : "Profile",
+          style: TextStyle(fontFamily: 'Poppins-Regular'),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         iconSize: 27,
         selectedLabelStyle: const TextStyle(fontFamily: 'Poppins-bold'),
         unselectedLabelStyle: const TextStyle(fontFamily: 'Poppins-regular'),
-        selectedItemColor: const Color.fromARGB(255, 240, 94, 94),
-        unselectedItemColor: const Color.fromARGB(255, 165, 145, 145),
+        backgroundColor: const Color.fromARGB(255, 235, 211, 0),
+        selectedItemColor: const Color.fromARGB(255, 24, 24, 24),
+        unselectedItemColor: const Color.fromARGB(255, 243, 243, 243),
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {

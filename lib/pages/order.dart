@@ -46,7 +46,7 @@ class _OrderPageState extends State<OrderPage> {
             fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
           );
       final url = fullPath.replaceFirst("VehicleImage/", "");
-      print(url);
+
       await supabase.from('vehicles').insert([
         {
           'vehicle_name': name,

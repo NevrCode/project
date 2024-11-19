@@ -56,7 +56,6 @@ class _HomePageState extends State<HomePage> {
                                     .getPublicUrl(vehicle.picURL),
                                 fit: BoxFit.cover,
                                 width: double.infinity,
-                                height: 100,
                                 // Adjust the height as needed
                               ),
                             ),
