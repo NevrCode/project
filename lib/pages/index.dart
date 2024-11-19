@@ -50,10 +50,10 @@ class _IndexState extends State<Index> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         iconSize: 27,
-        selectedLabelStyle: TextStyle(fontFamily: 'Poppins-bold'),
-        unselectedLabelStyle: TextStyle(fontFamily: 'Poppins-regular'),
-        selectedItemColor: Color.fromARGB(255, 240, 94, 94),
-        unselectedItemColor: Color.fromARGB(255, 165, 145, 145),
+        selectedLabelStyle: const TextStyle(fontFamily: 'Poppins-bold'),
+        unselectedLabelStyle: const TextStyle(fontFamily: 'Poppins-regular'),
+        selectedItemColor: const Color.fromARGB(255, 240, 94, 94),
+        unselectedItemColor: const Color.fromARGB(255, 165, 145, 145),
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {

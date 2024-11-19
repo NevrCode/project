@@ -5,7 +5,10 @@ import 'package:project/model/vehicle_model.dart';
 class VehicleProvider with ChangeNotifier {
   List<VehicleModel> vehicleList = [];
 
-  // Future<void> fetchData() {
-  //   final res = await supabase.from('vehicle').select();
-  // }
+  Future<void> fetchData() async {
+    final res = await supabase.from('vehicles').select('*, categories(*)');
+    print(res);
+    vehicleList = res.map((e) => VehicleModel.fromMap(e)).toList();
+    notifyListeners();
+  }
 }

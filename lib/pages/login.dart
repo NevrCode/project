@@ -1,11 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/register.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,16 +20,12 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   bool _isLoading = false;
 
-  Future<void> _login() async {}
-
-  Future<void> fetchUserData(BuildContext context) async {}
-
   @override
   Widget build(BuildContext context) {
-    final _auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor:
-          _isLoading ? Colors.white : Color.fromARGB(255, 255, 250, 250),
+          _isLoading ? Colors.white : const Color.fromARGB(255, 255, 250, 250),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
@@ -41,16 +36,16 @@ class _LoginPageState extends State<LoginPage> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 180, 0, 180),
+                  margin: const EdgeInsets.fromLTRB(0, 180, 0, 180),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                         // Logo berbentuk lingkaran
@@ -64,29 +59,32 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _emailController,
                             decoration: InputDecoration(
                               labelText: 'E-mail',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 243, 103, 103)),
                               prefixIcon: const Icon(
                                 Icons.email,
                                 color: Color.fromARGB(255, 247, 129, 129),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Color.fromARGB(255, 245, 182, 182)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               filled: true,
-                              fillColor: Color.fromARGB(255, 248, 248, 248),
+                              fillColor:
+                                  const Color.fromARGB(255, 248, 248, 248),
                             ),
                           ),
                         ),
@@ -101,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: InputDecoration(
                               iconColor: const Color.fromARGB(26, 168, 73, 73),
                               labelText: 'Password',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 243, 103, 103)),
                               prefixIcon: const Icon(Icons.lock,
                                   color: Color.fromARGB(255, 247, 129, 129)),
@@ -110,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                                   _obscureText
                                       ? Icons.visibility_off
                                       : Icons.visibility,
-                                  color: Color.fromARGB(255, 247, 129, 129),
+                                  color:
+                                      const Color.fromARGB(255, 247, 129, 129),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -119,22 +118,25 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Color.fromARGB(255, 245, 182, 182)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                    const BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               contentPadding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               filled: true,
-                              fillColor: Color.fromARGB(255, 248, 248, 248),
+                              fillColor:
+                                  const Color.fromARGB(255, 248, 248, 248),
                             ),
                           ),
                         ),
@@ -168,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: WidgetStateProperty.all(
                                 const EdgeInsets.fromLTRB(0, 0, 0, 0)),
                             backgroundColor: WidgetStateProperty.all(
-                                Color.fromARGB(255, 226, 140, 140)),
+                                const Color.fromARGB(255, 226, 140, 140)),
                             elevation: WidgetStateProperty.all(2),
                           ),
                           onPressed: () async {
@@ -177,17 +179,20 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isLoading = true;
                             });
-                            await _auth.signInWithPass(email, password);
+                            await auth.signInWithPass(email, password);
 
-                            if (_auth.user != null && mounted) {
+                            if (auth.user != null && mounted) {
+                              Provider.of<VehicleProvider>(context,
+                                      listen: false)
+                                  .fetchData();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   duration: const Duration(seconds: 1),
                                   backgroundColor:
-                                      Color.fromARGB(255, 242, 255, 242),
+                                      const Color.fromARGB(255, 242, 255, 242),
                                   content: Text(
-                                    'Hi, ${_auth.user!.userMetadata?['displayName']}. Selamat Berbelanja',
-                                    style: TextStyle(
+                                    'Hi, ${auth.user!.userMetadata?['displayName']}. Selamat Berbelanja',
+                                    style: const TextStyle(
                                         fontFamily: 'Poppins-regular',
                                         fontSize: 14,
                                         color:
@@ -198,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Index()));
+                                      builder: (context) => const Index()));
                             }
                           },
                           child: const Text(
