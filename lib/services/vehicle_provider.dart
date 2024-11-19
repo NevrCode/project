@@ -7,7 +7,6 @@ class VehicleProvider with ChangeNotifier {
 
   Future<void> fetchData() async {
     final res = await supabase.from('vehicles').select('*, categories(*)');
-    print(res);
     vehicleList = res.map((e) => VehicleModel.fromMap(e)).toList();
     notifyListeners();
   }

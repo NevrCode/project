@@ -190,9 +190,6 @@ class _LoginPageState extends State<LoginPage> {
                               await auth.signInWithPass(email, password);
 
                               if (auth.user != null && mounted) {
-                                Provider.of<VehicleProvider>(context,
-                                        listen: false)
-                                    .fetchData();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     duration: const Duration(seconds: 1),
