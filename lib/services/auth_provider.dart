@@ -15,11 +15,11 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<User?> signUpWithPass(
-      String email, String password, String name) async {
+      String email, String password, String name, String profilePic) async {
     final AuthResponse res = await supabase.auth.signUp(
       email: email,
       password: password,
-      data: {'displayName': name},
+      data: {'displayName': name, 'profile_picture': profilePic},
     );
     session = res.session;
     user = res.user;

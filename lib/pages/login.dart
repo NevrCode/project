@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/register.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/shared_preference_service.dart';
 import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -49,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 60,
                         ),
                         // Logo berbentuk lingkaran
-                        Text(
+                        const Text(
                           "HeavyHub",
                           style: TextStyle(
                               fontFamily: 'Poppins-Bold', fontSize: 30),
@@ -204,6 +207,12 @@ class _LoginPageState extends State<LoginPage> {
                                               Color.fromARGB(255, 61, 223, 83)),
                                     ),
                                   ),
+                                );
+                                SharedPreferenceService().saveSession(
+                                  auth.session!.accessToken,
+                                  auth.session!.refreshToken!,
+                                  auth.user!.id,
+                                  auth.user!.email!,
                                 );
                                 Navigator.pushReplacement(
                                     context,
