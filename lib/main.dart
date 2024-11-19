@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<VehicleProvider>(context, listen: false).fetchData();
     if (_isCheckingSession) {
       return const MaterialApp(
         home: Scaffold(
