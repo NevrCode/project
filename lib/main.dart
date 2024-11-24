@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       );
     }
     return MaterialApp(
-      home: _isLoggedIn ? Index() : LoginPage(),
+      home: _isLoggedIn ? const Index() : const LoginPage(),
     );
   }
 }

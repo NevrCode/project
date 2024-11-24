@@ -49,7 +49,7 @@ class _IndexState extends State<Index> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 237, 73),
-        leading: Icon(Icons.factory_sharp),
+        leading: const Icon(Icons.factory_sharp),
         title: Text(
           _tabIndex == 0
               ? "HeavyHub"
@@ -58,7 +58,7 @@ class _IndexState extends State<Index> {
                   : _tabIndex == 2
                       ? "Orders"
                       : "Profile",
-          style: TextStyle(fontFamily: 'Poppins-Regular'),
+          style: const TextStyle(fontFamily: 'Poppins-Regular'),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
