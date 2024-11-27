@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
+import 'package:project/services/shared_preference_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -29,5 +30,6 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signOut() async {
     await supabase.auth.signOut(scope: SignOutScope.local);
+    await SharedPreferenceService().clearSession();
   }
 }

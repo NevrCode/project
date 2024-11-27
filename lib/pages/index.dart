@@ -47,26 +47,45 @@ class _IndexState extends State<Index> {
   Widget build(BuildContext context) {
     pageController = PageController(initialPage: 0);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 237, 73),
-        leading: Icon(Icons.factory_sharp),
-        title: Text(
-          _tabIndex == 0
-              ? "HeavyHub"
-              : _tabIndex == 1
-                  ? "Vehicle"
-                  : _tabIndex == 2
-                      ? "Orders"
-                      : "Profile",
-          style: TextStyle(fontFamily: 'Poppins-Regular'),
-        ),
-      ),
+      backgroundColor: const Color.fromARGB(255, 255, 253, 248),
+      appBar: _tabIndex == 3
+          ? null
+          : AppBar(
+              backgroundColor: const Color.fromARGB(255, 255, 252, 242),
+              title: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        _tabIndex == 0
+                            ? "HeavyHub"
+                            : _tabIndex == 1
+                                ? "Vehicle"
+                                : _tabIndex == 2
+                                    ? "Orders"
+                                    : "",
+                        style: const TextStyle(fontFamily: 'Gotham-Bold'),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        height: 0.2,
+                        indent: 155,
+                        endIndent: 155,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         iconSize: 27,
-        selectedLabelStyle: const TextStyle(fontFamily: 'Poppins-bold'),
-        unselectedLabelStyle: const TextStyle(fontFamily: 'Poppins-regular'),
-        backgroundColor: const Color.fromARGB(255, 235, 211, 0),
+        selectedLabelStyle: const TextStyle(fontFamily: 'Gotham-bold'),
+        unselectedLabelStyle: const TextStyle(fontFamily: 'Gotham-regular'),
+        backgroundColor: const Color(0xffffd500),
         selectedItemColor: const Color.fromARGB(255, 24, 24, 24),
         unselectedItemColor: const Color.fromARGB(255, 243, 243, 243),
         type: BottomNavigationBarType.fixed,
