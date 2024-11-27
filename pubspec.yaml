@@ -16,6 +16,7 @@ dependencies:
   image_picker: ^1.1.2
   shared_preferences: ^2.3.3
   grouped_list: ^6.0.0
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:

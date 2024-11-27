@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:project/pages/home.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/login.dart';
@@ -41,10 +42,11 @@ class _RegisterPageState extends State<RegisterPage> {
     final email = _emailController.text;
     final pass = _passwordController.text;
     final nama = _namaController.text;
+    log(_userProfile.toString());
     String fullPath = await supabase.storage
         .from('VehicleImage/userprofile')
         .upload(
-          '${supabase.auth.currentUser!.id}.jpg',
+          basename(_userProfile!.path),
           _userProfile!,
           fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
         );
