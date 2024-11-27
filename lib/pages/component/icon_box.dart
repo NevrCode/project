@@ -2,22 +2,31 @@ import 'package:flutter/material.dart';
 
 class IconBox extends StatelessWidget {
   final IconData iconData;
-  const IconBox({super.key, required this.iconData});
+  final Color border;
+  final Color bg;
+  final Color icon;
+  const IconBox({
+    super.key,
+    required this.iconData,
+    this.border = const Color.fromARGB(255, 255, 255, 255),
+    this.bg = Colors.white,
+    this.icon = const Color.fromARGB(255, 238, 204, 11),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(),
+        border: Border.all(color: border),
         borderRadius: BorderRadius.circular(12),
-        color: const Color.fromARGB(255, 255, 254, 250),
+        color: bg,
       ),
       height: 70,
       width: 70,
       child: Center(
         child: Icon(
           iconData,
-          color: const Color.fromARGB(255, 48, 48, 48),
+          color: icon,
           size: 35,
         ),
       ),

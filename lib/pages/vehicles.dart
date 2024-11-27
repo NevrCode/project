@@ -38,13 +38,15 @@ class _VehiclePageState extends State<VehiclePage> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: vehicles.length,
                       itemBuilder: (context, index) {
+                        final vehicle = vehicles[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DetailVehiclePage(
-                                        vehicle: vehicles[index])));
+                                    builder: (context) => DetailPage(
+                                          vehicle: vehicle,
+                                        )));
                           },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(15, 3, 15, 0),
@@ -69,7 +71,7 @@ class _VehiclePageState extends State<VehiclePage> {
                                         child: AspectRatio(
                                           aspectRatio: 1,
                                           child: Image.network(
-                                            vehicles[index].picURL,
+                                            vehicle.picURL,
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                           ),
@@ -83,7 +85,7 @@ class _VehiclePageState extends State<VehiclePage> {
                                         children: [
                                           SizedBox(
                                             child: Text(
-                                              vehicles[index].name,
+                                              vehicle.modelName,
                                               maxLines: 2,
                                               style: const TextStyle(
                                                 fontSize: 16,

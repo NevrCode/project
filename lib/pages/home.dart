@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:project/main.dart';
 import 'package:project/model/vehicle_model.dart';
+import 'package:project/pages/component/icon_box.dart';
+import 'package:project/pages/component/vehicle_card.dart';
 import 'package:project/pages/detail.dart';
 import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,136 +24,95 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final vehicles = Provider.of<VehicleProvider>(context).vehicleList;
-    return Container(
+    final vehicles =
+        Provider.of<VehicleProvider>(context, listen: false).vehicleList;
+    return SingleChildScrollView(
       child: Stack(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: vehicles.length,
-              itemBuilder: (context, index) {
-                VehicleModel vehicle = vehicles[index];
-
-                return Container(
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 230, 230, 230)),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Card(
-                    elevation: 0.3,
-                    child: Container(
-                      height: 100,
-                      decoration: const BoxDecoration(color: Colors.white),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Display item image
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10)),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: Image.network(
-                                supabase.storage
-                                    .from('VehicleImage')
-                                    .getPublicUrl(vehicle.picURL),
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                // Adjust the height as needed
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 15, 0, 0),
+                        child: Text(
+                          "Welcome, ${supabase.auth.currentUser!.userMetadata!["displayName"]}",
+                          style: const TextStyle(
+                            fontFamily: "Gotham-regular",
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: IconBox(
+                                iconData: Icons.fire_truck,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  vehicle.name,
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins-regular',
-                                  ),
-                                ),
-                                Text(
-                                  vehicle.category,
-                                  style: const TextStyle(
-                                      color:
-                                          Color.fromARGB(255, 114, 114, 114)),
-                                ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Row(
-                                //     children: [
-                                //       Icon(
-                                //         Icons.star_rounded,
-                                //         size: 30,
-                                //         color: Color.fromARGB(
-                                //             255, 253, 235, 72),
-                                //       ),
-                                //       Padding(
-                                //         padding:
-                                //             const EdgeInsets
-                                //                 .only(
-                                //                 left: 8.0),
-                                //         child: Text(
-                                //           '${product.rate.toStringAsFixed(product.rate.truncateToDouble() == product.rate ? 0 : 1)} /5',
-                                //           style: TextStyle(
-                                //             fontFamily:
-                                //                 'Poppins-regular',
-                                //             fontSize: 14,
-                                //             color:
-                                //                 Color.fromARGB(
-                                //                     255,
-                                //                     165,
-                                //                     165,
-                                //                     165),
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // )
-                              ],
+                            IconBox(
+                              iconData: Icons.ac_unit_rounded,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
+                            IconBox(
+                              iconData: Icons.ac_unit_rounded,
+                            ),
+                            IconBox(
+                              iconData: Icons.ac_unit_rounded,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 230, 230, 230)),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.8,
+                        ),
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: vehicles.length,
+                        itemBuilder: (context, index) {
+                          final vehicle = vehicles[index];
+                          return VehicleCard(vehicle: vehicle);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 40, 20, 20),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border:
-                    Border.all(color: const Color.fromARGB(255, 189, 189, 189)),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              width: MediaQuery.of(context).size.width,
-              height: 40,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 16),
-                child: Text(
-                  "Welcome, ${supabase.auth.currentUser!.userMetadata!["displayName"]}",
-                  style: TextStyle(
-                    fontFamily: "Gotham-regular",
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
-      
+      ),
     );
   }
 }

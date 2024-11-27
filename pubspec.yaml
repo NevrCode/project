@@ -17,6 +17,7 @@ dependencies:
   shared_preferences: ^2.3.3
   grouped_list: ^6.0.0
   path: ^1.9.0
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

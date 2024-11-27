@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:project/pages/home.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/services/auth_provider.dart';
