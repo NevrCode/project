@@ -11,8 +11,9 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addOrders(LeaseModel lease) async {
-    await supabase.from("lease").insert(lease.toMap());
+  Future<void> addOrders(LeaseModel newLease) async {
+    lease.add(newLease);
+    await supabase.from("lease").insert(newLease.toMap());
     notifyListeners();
   }
 }
