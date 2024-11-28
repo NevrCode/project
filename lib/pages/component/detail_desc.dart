@@ -20,6 +20,7 @@ class DetailDescription extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+
           Flexible(
             child: CostumText(
               data: attribute,

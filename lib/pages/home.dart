@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                       color: const Color.fromARGB(255, 230, 230, 230)),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(

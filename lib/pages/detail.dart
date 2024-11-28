@@ -46,11 +46,13 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: const Color.fromARGB(255, 255, 253, 248),
         title: Column(
           children: [
+
             Center(child: CostumText(data: widget.vehicle.modelName)),
             Divider(
               indent: 140,
               endIndent: 140,
             ),
+
           ],
         ),
       ),
@@ -65,7 +67,7 @@ class _DetailPageState extends State<DetailPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No details found.'));
+            return const Center(child: Text('No details found.'));
           } else {
             final dvm = snapshot.data!;
             return SingleChildScrollView(
@@ -120,6 +122,7 @@ class _DetailPageState extends State<DetailPage> {
                             ],
                           ),
                         ),
+
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
                           child: Row(
