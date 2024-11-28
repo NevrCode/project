@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/model/vehicle_model.dart';
-import 'package:project/pages/component/icon_box.dart';
-import 'package:project/pages/component/vehicle_card.dart';
 import 'package:project/pages/detail.dart';
 import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,58 +22,112 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final vehicles =
-        Provider.of<VehicleProvider>(context, listen: false).vehicleList;
-    return SingleChildScrollView(
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+    final vehicles = Provider.of<VehicleProvider>(context).vehicleList;
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: vehicles.length,
+        itemBuilder: (context, index) {
+          VehicleModel vehicle = vehicles[index];
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return DetailPage(
+                    vehicle: vehicle,
+                  );
+                }));
+              },
+              child: Card(
+                elevation: 0.3,
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 230, 230, 230)),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
+                  height: 100,
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 15, 0, 0),
-                        child: Text(
-                          "Welcome, ${supabase.auth.currentUser!.userMetadata!["displayName"]}",
-                          style: const TextStyle(
-                            fontFamily: "Gotham-regular",
-                            fontSize: 20,
+                      // Display item image
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image.network(
+                            vehicle.picURL,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            // Adjust the height as needed
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: IconBox(
-                                iconData: Icons.fire_truck,
+                            SizedBox(
+                              width: 250,
+                              child: Text(
+                                vehicle.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins-regular',
+                                ),
                               ),
                             ),
-                            IconBox(
-                              iconData: Icons.ac_unit_rounded,
+                            Text(
+                              vehicle.category,
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 114, 114, 114)),
                             ),
-                            IconBox(
-                              iconData: Icons.ac_unit_rounded,
-                            ),
-                            IconBox(
-                              iconData: Icons.ac_unit_rounded,
-                            ),
+                            // SizedBox(
+                            //   height: 40,
+                            //   child: Row(
+                            //     children: [
+                            //       Icon(
+                            //         Icons.star_rounded,
+                            //         size: 30,
+                            //         color: Color.fromARGB(
+                            //             255, 253, 235, 72),
+                            //       ),
+                            //       Padding(
+                            //         padding:
+                            //             const EdgeInsets
+                            //                 .only(
+                            //                 left: 8.0),
+                            //         child: Text(
+                            //           '${product.rate.toStringAsFixed(product.rate.truncateToDouble() == product.rate ? 0 : 1)} /5',
+                            //           style: TextStyle(
+                            //             fontFamily:
+                            //                 'Poppins-regular',
+                            //             fontSize: 14,
+                            //             color:
+                            //                 Color.fromARGB(
+                            //                     255,
+                            //                     165,
+                            //                     165,
+                            //                     165),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
