@@ -82,31 +82,23 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 230, 230, 230)),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.8,
-                        ),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: vehicles.length,
-                        itemBuilder: (context, index) {
-                          final vehicle = vehicles[index];
-                          return VehicleCard(vehicle: vehicle);
-                        },
-                      )
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.8,
+                      ),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: vehicles.length,
+                      itemBuilder: (context, index) {
+                        final vehicle = vehicles[index];
+                        return VehicleCard(vehicle: vehicle);
+                      },
+                    )
+                  ],
                 ),
               ),
             ],
