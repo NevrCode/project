@@ -20,16 +20,18 @@ class DetailDescription extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 150,
+          Flexible(
             child: CostumText(
               data: attribute,
               color: const Color.fromARGB(255, 99, 99, 99),
             ),
           ),
-          CostumText(
-            data: value,
-            color: const Color.fromARGB(255, 37, 37, 37),
+          Flexible(
+            child: CostumText(
+              data: value,
+              color: const Color.fromARGB(255, 37, 37, 37),
+              align: TextAlign.end,
+            ),
           ),
         ],
       ),
