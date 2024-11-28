@@ -45,7 +45,7 @@ class _DetailPageState extends State<DetailPage> {
         title: Column(
           children: [
             Center(child: Text(widget.vehicle.modelName)),
-            Divider(indent: 90, endIndent: 90),
+            const Divider(indent: 90, endIndent: 90),
           ],
         ),
       ),
@@ -53,11 +53,11 @@ class _DetailPageState extends State<DetailPage> {
         future: _futureDetail,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No details found.'));
+            return const Center(child: Text('No details found.'));
           } else {
             final dvm = snapshot.data!;
             return SingleChildScrollView(
@@ -85,9 +85,9 @@ class _DetailPageState extends State<DetailPage> {
                           color: const Color.fromARGB(255, 151, 9, 9),
                           size: 18,
                         ),
-                        CostumText(
+                        const CostumText(
                           data: "/hr",
-                          color: const Color.fromARGB(255, 87, 38, 38),
+                          color: Color.fromARGB(255, 87, 38, 38),
                           size: 16,
                         ),
                       ],
@@ -98,9 +98,9 @@ class _DetailPageState extends State<DetailPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CostumText(
+                        const CostumText(
                           data: "min : ",
-                          color: const Color.fromARGB(255, 156, 156, 156),
+                          color: Color.fromARGB(255, 156, 156, 156),
                           size: 16,
                         ),
                         CostumText(

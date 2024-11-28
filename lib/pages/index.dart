@@ -67,10 +67,10 @@ class _IndexState extends State<Index> {
                                     : "",
                         style: const TextStyle(fontFamily: 'Gotham-Bold'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Divider(
+                      const Divider(
                         height: 0.2,
                         indent: 155,
                         endIndent: 155,
