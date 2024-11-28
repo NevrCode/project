@@ -11,11 +11,13 @@ class VehicleCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailPage(
-                      vehicle: vehicle,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(
+              vehicle: vehicle,
+            ),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(6, 3, 6, 0),
@@ -67,6 +69,5 @@ class VehicleCard extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }
