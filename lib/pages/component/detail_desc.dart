@@ -20,7 +20,7 @@ class DetailDescription extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: 150,
             child: CostumText(
               data: attribute,

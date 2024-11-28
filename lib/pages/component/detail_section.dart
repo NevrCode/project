@@ -18,14 +18,14 @@ class DetailSection extends StatelessWidget {
         children: [
           Text(
             attributeName,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "Gotham-regular",
               fontSize: 16,
             ),
           ),
           Text(
             attributeValue,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "Gotham-regular",
               fontSize: 16,
             ),

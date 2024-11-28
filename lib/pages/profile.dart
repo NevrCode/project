@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/login.dart';
+import 'package:project/pages/order.dart';
 import 'package:project/services/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,117 +16,120 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context, listen: false);
-    return Container(
-      child: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              child: Image.network(
-                  "https://kontainerindonesia.co.id/blog/wp-content/uploads/2023/12/Alat-Berat-Excavator-scaled.webp"),
-              width: MediaQuery.of(context).size.width,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 180,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    // height: ,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Hello, ${supabase.auth.currentSession!.user.userMetadata!['displayName']}",
-                                style: const TextStyle(
-                                  fontFamily: "Gotham-regular",
-                                  fontSize: 20,
-                                  color: Color.fromARGB(255, 37, 37, 37),
+    return SingleChildScrollView(
+      child: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+                "https://kontainerindonesia.co.id/blog/wp-content/uploads/2023/12/Alat-Berat-Excavator-scaled.webp"),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 180,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: ,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Hello, ${supabase.auth.currentSession!.user.userMetadata!['displayName']}",
+                              style: const TextStyle(
+                                fontFamily: "Gotham-regular",
+                                fontSize: 20,
+                                color: Color.fromARGB(255, 37, 37, 37),
+                              ),
+                            ),
+                            const Icon(
+                              Icons.history,
+                              size: 30,
+                              color: Color.fromARGB(255, 102, 102, 102),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            auth.signOut();
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()));
+                          },
+                          style: ButtonStyle(
+                            surfaceTintColor: const WidgetStatePropertyAll(
+                                Color.fromARGB(255, 179, 179, 179)),
+                            shape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.red),
+                                    borderRadius: BorderRadius.circular(7))),
+                            // fixedSize: WidgetStateProperty.all(const Size(320, 52)),
+
+                            padding: WidgetStateProperty.all(
+                                const EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                            backgroundColor: WidgetStateProperty.all(
+                                const Color.fromARGB(255, 255, 245, 245)),
+                            elevation: WidgetStateProperty.all(0),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Log Out',
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 32, 32, 32),
+                                      fontFamily: 'Gotham-Bold'),
                                 ),
-                              ),
-                              Icon(
-                                Icons.history,
-                                size: 30,
-                                color: const Color.fromARGB(255, 102, 102, 102),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              auth.signOut();
-
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()));
-                            },
-                            style: ButtonStyle(
-                              surfaceTintColor: const WidgetStatePropertyAll(
-                                  Color.fromARGB(255, 179, 179, 179)),
-                              shape: WidgetStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      side: BorderSide(color: Colors.red),
-                                      borderRadius: BorderRadius.circular(7))),
-                              // fixedSize: WidgetStateProperty.all(const Size(320, 52)),
-
-                              padding: WidgetStateProperty.all(
-                                  const EdgeInsets.fromLTRB(0, 0, 0, 0)),
-                              backgroundColor: WidgetStateProperty.all(
-                                  const Color.fromARGB(255, 255, 245, 245)),
-                              elevation: WidgetStateProperty.all(0),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Log Out',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 32, 32, 32),
-                                        fontFamily: 'Gotham-Bold'),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.logout,
+                                    color: Color.fromARGB(255, 54, 54, 54),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      Icons.logout,
-                                      color: Color.fromARGB(255, 54, 54, 54),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const OrderPage()));
+                          },
+                          child: const Text("Go to Order"))
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

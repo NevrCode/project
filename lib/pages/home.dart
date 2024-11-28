@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                       color: const Color.fromARGB(255, 230, 230, 230)),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
@@ -51,11 +51,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.8,
               ),
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: vehicles.length,
               itemBuilder: (context, index) {
