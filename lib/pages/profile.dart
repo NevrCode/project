@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/login.dart';
+import 'package:project/pages/order.dart';
 import 'package:project/services/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -116,6 +117,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const OrderPage()));
+                          },
+                          child: const Text("Go to Order"))
                     ],
                   ),
                 ),
