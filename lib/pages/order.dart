@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/model/lease_model.dart';
+import 'package:project/services/order_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class OrderPage extends StatefulWidget {
@@ -23,9 +25,11 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
-        makeOrder();
+        orderProvider.modifyLeaseDuration(2, 13);
+        print(orderProvider.lease);
       }),
     );
   }

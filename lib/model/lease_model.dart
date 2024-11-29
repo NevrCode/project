@@ -1,10 +1,10 @@
 class LeaseModel {
-  final int id;
-  final String uid;
-  final String? projectLocation;
-  final String vehicleId;
-  final DateTime leaseStartDate;
-  final int rentalHours;
+  int id;
+  String uid;
+  String? projectLocation;
+  String vehicleId;
+  DateTime leaseStartDate;
+  int rentalHours;
 
   LeaseModel({
     required this.id,
@@ -35,5 +35,11 @@ class LeaseModel {
       'lease_start_date': leaseStartDate.toIso8601String(),
       'rental_hours': rentalHours,
     };
+  }
+
+  // debug only
+  @override
+  String toString() {
+    return toMap().toString();
   }
 }
