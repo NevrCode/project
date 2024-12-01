@@ -42,14 +42,14 @@ class _HomePageState extends State<HomePage> {
                       color: const Color.fromARGB(255, 230, 230, 230)),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [],
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: CostumText(
                           data:
                               "Welcome, ${supabase.auth.currentUser!.userMetadata!['displayName']}"),
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GridView.builder(

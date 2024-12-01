@@ -15,12 +15,7 @@ const _navBarItems = [
   BottomNavigationBarItem(
     icon: Icon(Icons.home_rounded),
     activeIcon: Icon(Icons.home_rounded),
-    label: 'Home',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.fire_truck),
-    activeIcon: Icon(Icons.fire_truck),
-    label: 'Vehicle',
+    label: 'Katalog',
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.list_alt),
@@ -61,10 +56,8 @@ class _IndexState extends State<Index> {
                         _tabIndex == 0
                             ? "HeavyHub"
                             : _tabIndex == 1
-                                ? "Vehicle"
-                                : _tabIndex == 2
-                                    ? "Orders"
-                                    : "",
+                                ? "Transaction"
+                                : "",
                         style: const TextStyle(fontFamily: 'Gotham-Bold'),
                       ),
                       const SizedBox(
@@ -106,7 +99,6 @@ class _IndexState extends State<Index> {
         },
         children: const [
           HomePage(),
-          VehiclePage(),
           OrderPage(),
           ProfilePage(),
         ],

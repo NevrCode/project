@@ -46,13 +46,11 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: const Color.fromARGB(255, 255, 253, 248),
         title: Column(
           children: [
-
             Center(child: CostumText(data: widget.vehicle.modelName)),
             Divider(
               indent: 140,
               endIndent: 140,
             ),
-
           ],
         ),
       ),
@@ -122,7 +120,6 @@ class _DetailPageState extends State<DetailPage> {
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
                           child: Row(
@@ -194,12 +191,21 @@ class _DetailPageState extends State<DetailPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ...dvm.specification.entries.map((e) {
-                                return DetailDescription(
-                                  attribute: e.key,
-                                  value: e.value.toString(),
-                                );
-                              }).toList(),
+                              ExpansionTile(
+                                title: Center(
+                                  child: CostumText(
+                                      data:
+                                          "${widget.vehicle.category} Detail"),
+                                ),
+                                children: [
+                                  ...dvm.specification.entries.map((e) {
+                                    return DetailDescription(
+                                      attribute: e.key,
+                                      value: e.value.toString(),
+                                    );
+                                  }).toList(),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -237,20 +243,19 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {},
                             elevation: 0,
                             height: 60,
-                            width: 200,
-                            color: Colors.white,
+                            width: 240,
+                            color: const Color(0xffffd500),
                             overlay: const Color.fromARGB(115, 228, 216, 58),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CostumText(
                                   data: "Add to Cart",
-                                  color:
-                                      const Color.fromARGB(255, 116, 116, 116),
+                                  color: const Color.fromARGB(255, 49, 49, 49),
                                 ),
                                 Icon(Icons.shopping_cart_checkout_rounded,
                                     color:
-                                        const Color.fromARGB(255, 95, 95, 95)),
+                                        const Color.fromARGB(255, 65, 65, 65)),
                               ],
                             ),
                           ),
