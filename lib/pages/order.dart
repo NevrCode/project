@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/model/lease_model.dart';
+
 import 'package:project/pages/component/detail_desc.dart';
 import 'package:project/services/order_provider.dart';
 import 'package:project/util/util.dart';
@@ -19,17 +20,12 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> {
   final expansionController = ExpansionTileController();
   Future<void> makeOrder() async {
-    await supabase.from("lease").insert(LeaseModel(
-            id: 123,
-            uid: supabase.auth.currentSession!.user.id,
-            vehicleId: "10623aea-1128-4604-9daa-ad6421715a23",
-            leaseStartDate: DateTime.now(),
-            rentalHours: 12)
-        .toMap());
+    return;
   }
 
   @override
   Widget build(BuildContext context) {
+
     final order = Provider.of<OrderProvider>(context, listen: false).lease;
     return Container(
       child: Column(
@@ -220,6 +216,7 @@ class _OrderPageState extends State<OrderPage> {
         //   },
         // )
       ),
+
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:project/main.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/pages/order.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/order_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,6 +16,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+
     final auth = Provider.of<AuthProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Stack(
@@ -119,6 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ElevatedButton(
                           onPressed: () {
+                            orderProvider.fetchData();
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const OrderPage()));
                           },

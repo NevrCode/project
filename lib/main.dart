@@ -20,6 +20,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => VehicleProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider())
+
         // Add more providers here
       ],
       child: const MyApp(),
