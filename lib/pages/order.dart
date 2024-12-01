@@ -17,6 +17,7 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  final expansionController = ExpansionTileController();
   Future<void> makeOrder() async {
     await supabase.from("lease").insert(LeaseModel(
             id: 123,
@@ -33,187 +34,191 @@ class _OrderPageState extends State<OrderPage> {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border:
-                    Border.all(color: const Color.fromARGB(255, 230, 230, 230)),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 15, 15, 20),
-                child: Column(
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  bottom: BorderSide(
+                      color: const Color.fromARGB(255, 221, 221, 221))),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 15, 15, 20),
+              child: ExpansionTile(
+                showTrailingIcon: false,
+                shape:
+                    Border.all(color: const Color.fromARGB(0, 255, 255, 255)),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 7.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Colors.yellow,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
-                              child: CostumText(data: "in progress"),
-                            ),
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 7.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Colors.yellow,
                         ),
-                        CostumText(
-                          data: "14 Feb 1994",
-                          color: const Color.fromARGB(255, 37, 37, 37),
-                          align: TextAlign.end,
-                          size: 14,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                          child: CostumText(data: "in progress"),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: CostumText(
-                              data: "ID",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                          Flexible(
-                            child: CostumText(
-                              data: "aaaa-bbbb-333-ffff",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: CostumText(
-                              data: "Items :",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ClipRRect(
-                            child: Image.network(
-                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs47xqoqlemOtsdogwGSyWMkIWyR0GPzA5UQ&s",
-                              width: 90,
-                            ),
-                          ),
-                          CostumText(data: "Corgi")
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: CostumText(
-                              data: "Location",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                          Flexible(
-                            child: CostumText(
-                              data: "Jakarta",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: CostumText(
-                              data: "Rented for",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                          Flexible(
-                            child: CostumText(
-                              data: "12 Days",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: CostumText(
-                              data: "Location",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                          Flexible(
-                            child: CostumText(
-                              data: "Jakarta",
-                              color: const Color.fromARGB(255, 37, 37, 37),
-                              align: TextAlign.end,
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
+                    CostumText(
+                      data: "14 Feb 1994",
+                      color: const Color.fromARGB(255, 37, 37, 37),
+                      align: TextAlign.end,
+                      size: 14,
                     ),
                   ],
                 ),
+                children: <Widget>[
+                  Builder(builder: (context) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: CostumText(
+                                  data: "ID",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                              Flexible(
+                                child: CostumText(
+                                  data: "aaaa-bbbb-333-ffff",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: CostumText(
+                                  data: "Items :",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ClipRRect(
+                                child: Image.network(
+                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs47xqoqlemOtsdogwGSyWMkIWyR0GPzA5UQ&s",
+                                  width: 90,
+                                ),
+                              ),
+                              CostumText(data: "Corgi")
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: CostumText(
+                                  data: "Location",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                              Flexible(
+                                child: CostumText(
+                                  data: "Jakarta",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: CostumText(
+                                  data: "Rented for",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                              Flexible(
+                                child: CostumText(
+                                  data: "12 Days",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: CostumText(
+                                  data: "Location",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                              Flexible(
+                                child: CostumText(
+                                  data: "Jakarta",
+                                  color: const Color.fromARGB(255, 37, 37, 37),
+                                  align: TextAlign.end,
+                                  size: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+                ],
               ),
             ),
           ),
-
-          // ListView.builder(
-          //   shrinkWrap: true,
-          //   itemCount: order.length,
-          //   itemBuilder: (context, index) {
-          //     return Container();
-          //   },
-          // )
         ],
+
+        // ListView.builder(
+        //   shrinkWrap: true,
+        //   itemCount: order.length,
+        //   itemBuilder: (context, index) {
+        //     return Container();
+        //   },
+        // )
       ),
     );
   }
