@@ -5,6 +5,7 @@ class IconBox extends StatelessWidget {
   final Color border;
   final Color bg;
   final Color icon;
+
   const IconBox({
     super.key,
     required this.iconData,
