@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:project/pages/add_location.dart';
 import 'package:project/pages/component/detail_desc.dart';
 import 'package:project/pages/component/vehicle_card.dart';
 import 'package:project/util/util.dart';
@@ -81,6 +82,31 @@ class _SaveLocationPageState extends State<SaveLocationPage> {
               );
             },
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+            child: MyButton(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const AddLocationPage()));
+                },
+                width: 200,
+                height: 40,
+                elevation: 0,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: const Color.fromARGB(255, 87, 87, 87),
+                      ),
+                      CostumText(data: "tambah lokasi"),
+                    ],
+                  ),
+                )),
+          )
         ],
       ),
     );
