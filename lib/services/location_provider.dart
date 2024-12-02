@@ -10,6 +10,7 @@ class LocationProvider with ChangeNotifier {
         .from('locations')
         .select("*")
         .eq('user_id', supabase.auth.currentUser!.id);
+
     locations = res.map((e) => LocationModel.fromMap(e)).toList();
     notifyListeners();
   }
@@ -37,6 +38,7 @@ class LocationProvider with ChangeNotifier {
         .from('locations')
         .update(modifiedLocation.toMap())
         .eq('location_id', modifiedLocation.locationId);
+
     notifyListeners();
   }
 }

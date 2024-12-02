@@ -3,6 +3,7 @@ class LeaseModel {
   String uid;
   String? projectLocation;
   Map<String, dynamic> vehicle;
+
   DateTime leaseStartDate;
   int rentalHours;
   String status;
