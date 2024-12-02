@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/pages/order.dart';
+import 'package:project/pages/saved_location.dart';
 import 'package:project/services/auth_provider.dart';
 import 'package:project/services/location_provider.dart';
 import 'package:project/services/order_provider.dart';
@@ -17,7 +18,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final locationProvider = Provider.of<LocationProvider>(context);
 
     final auth = Provider.of<AuthProvider>(context, listen: false);
     return SingleChildScrollView(
@@ -76,6 +76,60 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: ElevatedButton(
                           onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SaveLocationPage()));
+                          },
+                          style: ButtonStyle(
+                            overlayColor: WidgetStatePropertyAll(
+                                const Color.fromARGB(255, 230, 230, 230)),
+                            shape: const WidgetStatePropertyAll(LinearBorder(
+                              side: BorderSide(
+                                color: Color.fromARGB(255, 92, 92, 92),
+                              ),
+                              bottom: LinearBorderEdge(),
+                            )
+                                // RoundedRectangleBorder(
+                                //   side:
+                                //   const BorderSide(
+                                //       color: Color.fromARGB(255, 172, 172, 172)),
+                                //   borderRadius: BorderRadius.circular(3),
+                                // ),
+                                ),
+                            // fixedSize: WidgetStateProperty.all(const Size(320, 52)),
+
+                            padding: WidgetStateProperty.all(
+                                const EdgeInsets.fromLTRB(0, 0, 0, 0)),
+                            backgroundColor: WidgetStateProperty.all(
+                                const Color.fromARGB(255, 255, 255, 255)),
+                            elevation: WidgetStateProperty.all(0),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Saved Location',
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 32, 32, 32),
+                                      fontFamily: 'Gotham-Bold'),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Icon(
+                                    Icons.pin_drop_rounded,
+                                    color: Color.fromARGB(255, 54, 54, 54),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                        child: ElevatedButton(
+                          onPressed: () {
                             auth.signOut();
 
                             Navigator.pushReplacement(
@@ -121,13 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: () async {
-                            await locationProvider.fetchData();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const OrderPage()));
-                          },
-                          child: const Text("Go to Order"))
+
                     ],
                   ),
                 ),

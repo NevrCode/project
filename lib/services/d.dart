@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+
 import 'package:project/main.dart';
-import 'package:deepcopy/deepcopy.dart';
 import 'package:project/model/lease_model.dart';
 
 class OrderProvider with ChangeNotifier {
   Map<String, dynamic> lease = {};
   Map<String, dynamic> orderItems = {};
 
-
-  Future<void> fetchData(String uid) async {
-    final res =
-        await supabase.from('lease').select("*, vehicles(*)").eq("uid", uid);
-
-    lease = res.map((e) => LeaseModel.fromMap(e)).toList();
-
-
+  Future<void> fetchData() async {
+    final res = await supabase
+        .from('lease')
+        .select(", vehicles()")
+        .eq('uid', supabase.auth.currentUser!.id);
+    Map<String, dynamic> tempLease = {};
+    for (int i = 0; i < res.length; i++) {
+      tempLease[res[i]["id"].toString()] = res[i];
+    }
+    lease = tempLease;
     notifyListeners();
+    print(lease);
   }
 
   Future<void> modifyLeaseDuration(int id, int newDuration) async {
@@ -28,7 +31,7 @@ class OrderProvider with ChangeNotifier {
 
   Future<void> addOrder(Map<String, dynamic> leaseToAdd) async {
     lease[leaseToAdd["id"].toString()] = leaseToAdd;
-    Map leaseForDb = leaseToAdd.deepcopy();
+    Map<String, dynamic> leaseForDb = Map.from(leaseToAdd);
     leaseForDb.remove("vehicles");
     await supabase.from("lease").insert(leaseForDb);
     notifyListeners();

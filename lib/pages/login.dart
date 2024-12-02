@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/register.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/order_provider.dart';
 import 'package:project/services/shared_preference_service.dart';
 import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
@@ -211,6 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                                   auth.user!.id,
                                   auth.user!.email!,
                                 );
+                                Provider.of<OrderProvider>(context,
+                                        listen: false)
+                                    .fetchData(supabase.auth.currentUser!.id);
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

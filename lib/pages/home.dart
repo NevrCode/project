@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                       children: [],
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: CostumText(
                           data:
                               "Welcome, ${supabase.auth.currentUser!.userMetadata!['displayName']}"),
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GridView.builder(
