@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:project/main.dart';
 import 'package:project/model/detail_vehicle_model.dart';
@@ -18,6 +19,9 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   late Future<DetailVehicleModel> _futureDetail;
+  final _formKey = GlobalKey<FormState>();
+  final _rentController = TextEditingController();
+  final _locationController = TextEditingController();
 
   String formatCurrency(String price) {
     final formatter = NumberFormat.currency(locale: 'id', symbol: 'Rp ');
@@ -240,7 +244,8 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                           ),
                           MyButton(
-                            onTap: () {},
+                            onTap: () => _showBottomSheet(
+                                context, widget.vehicle.minimumHours),
                             elevation: 0,
                             height: 60,
                             width: 240,
@@ -268,6 +273,89 @@ class _DetailPageState extends State<DetailPage> {
             );
           }
         },
+      ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context, int min) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.all(12),
+        height: 400,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _rentController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter
+                            .digitsOnly, // Only digits allowed
+                      ],
+                      decoration: InputDecoration(
+                          labelText: 'Lama Peminjaman',
+                          labelStyle: TextStyle(fontFamily: "Gotham-regular"),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          suffixText: "Jam"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a number';
+                        }
+                        int? number = int.tryParse(value);
+                        if (number == null) {
+                          return 'Invalid number';
+                        }
+                        if (number < min) {
+                          return 'Minimal $min jam';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      controller: _locationController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: 'Lokasi pengiriman',
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12))),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Masukkan Lokasi';
+                        }
+
+                        return null;
+                      },
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {}
+                      },
+                      child: Text('Submit'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

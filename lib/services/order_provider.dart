@@ -5,9 +5,12 @@ import 'package:project/model/lease_model.dart';
 class OrderProvider with ChangeNotifier {
   List<LeaseModel> lease = [];
 
-  Future<void> fetchData() async {
-    final res = await supabase.from('lease').select("*, vehicles(*)");
+  Future<void> fetchData(String uid) async {
+    final res =
+        await supabase.from('lease').select("*, vehicles(*)").eq("uid", uid);
+
     lease = res.map((e) => LeaseModel.fromMap(e)).toList();
+
     notifyListeners();
   }
 

@@ -2,8 +2,7 @@ class LeaseModel {
   int id;
   String uid;
   String? projectLocation;
-  // TODO : vehicle model
-  Map<String, dynamic> vehicleModel;
+  Map<String, dynamic> vehicle;
   DateTime leaseStartDate;
   int rentalHours;
   String status;
@@ -12,7 +11,7 @@ class LeaseModel {
     required this.id,
     required this.uid,
     this.projectLocation,
-    required this.vehicleModel,
+    required this.vehicle,
     required this.leaseStartDate,
     required this.rentalHours,
     this.status = "Diproses",
@@ -23,7 +22,7 @@ class LeaseModel {
         id: map['id'] as int,
         uid: map['uid'] as String,
         projectLocation: map['project_location'] as String?,
-        vehicleModel: map['vehicles'] as Map<String, dynamic>,
+        vehicle: map['vehicles'] as Map<String, dynamic>,
         leaseStartDate: DateTime.parse(map['lease_start_date'] as String),
         rentalHours: map['rental_hours'] as int,
         status: map['status'] as String);
@@ -35,7 +34,7 @@ class LeaseModel {
       'id': id,
       'uid': uid,
       'project_location': projectLocation,
-      'vehicle_id': vehicleModel['vehicle_id'],
+      'vehicle': vehicle,
       'lease_start_date': leaseStartDate.toIso8601String(),
       'rental_hours': rentalHours,
       'status': status,
