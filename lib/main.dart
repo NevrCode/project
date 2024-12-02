@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/location_provider.dart';
 import 'package:project/services/order_provider.dart';
 import 'package:project/services/shared_preference_service.dart';
 import 'package:project/services/vehicle_provider.dart';
@@ -19,7 +20,8 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => VehicleProvider()),
-        ChangeNotifierProvider(create: (context) => OrderProvider())
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
+        ChangeNotifierProvider(create: (context) => LocationProvider())
 
         // Add more providers here
       ],
