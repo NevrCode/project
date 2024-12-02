@@ -1,46 +1,47 @@
 import 'package:flutter/material.dart';
 
 import 'package:project/main.dart';
+import 'package:deepcopy/deepcopy.dart';
 import 'package:project/model/lease_model.dart';
 
 class OrderProvider with ChangeNotifier {
-  List<LeaseModel> lease = [];
+  Map<String, dynamic> lease = {};
+  Map<String, dynamic> orderItems = {};
 
   Future<void> fetchData() async {
-    final res = await supabase.from('lease').select("*, vehicles(*)");
-    lease = res.map((e) => LeaseModel.fromMap(e)).toList();
+    final res = await supabase
+        .from('lease')
+        .select("*, vehicles(*)")
+        .eq('uid', supabase.auth.currentUser!.id);
+    Map<String, dynamic> tempLease = {};
+    for (int i = 0; i < res.length; i++) {
+      tempLease[res[i]["id"].toString()] = res[i];
+    }
+    lease = tempLease;
     notifyListeners();
     print(lease);
   }
 
   Future<void> modifyLeaseDuration(int id, int newDuration) async {
-    for (var l in lease) {
-      if (l.id == id) {
-        l.rentalHours = newDuration;
-      }
-    }
+    lease[id.toString()]["rental_hours"] = newDuration;
     await supabase
         .from('lease')
         .update({"rental_hours": newDuration}).eq('id', id);
     notifyListeners();
   }
 
-  Future<void> addOrder(LeaseModel leaseToAdd) async {
-    lease.add(leaseToAdd);
-    await supabase.from("lease").insert(leaseToAdd.toMap());
+  Future<void> addOrder(Map<String, dynamic> leaseToAdd) async {
+    lease[leaseToAdd["id"].toString()] = leaseToAdd;
+    Map<String, dynamic> leaseForDb = Map.from(leaseToAdd);
+    leaseForDb.remove("vehicles");
+    await supabase.from("lease").insert(leaseForDb);
     notifyListeners();
   }
 
-  Future<void> changeStatus(int leaseId) async {
-    for (LeaseModel l in lease) {
-      if (l.id == leaseId) {
-        l.status = "Selesai";
-        await supabase
-            .from("lease")
-            .update({"status": "Selesai"}).eq('id', l.id);
-        break;
-      }
-    }
+  // use Waiting for Payment, Diproses maupun Selesai
+  Future<void> changeStatus(int leaseId, String status) async {
+    lease[leaseId.toString()]["status"] = status;
+    await supabase.from("lease").update({"status": status}).eq('id', leaseId);
     notifyListeners();
   }
-
+}

@@ -2,7 +2,6 @@ class LeaseModel {
   int id;
   String uid;
   String? projectLocation;
-  // TODO : vehicle model
   Map<String, dynamic> vehicleModel;
   DateTime leaseStartDate;
   int rentalHours;
