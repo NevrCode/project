@@ -32,7 +32,7 @@ class OrderProvider with ChangeNotifier {
 
   Future<void> addOrder(Map<String, dynamic> leaseToAdd) async {
     lease[leaseToAdd["id"].toString()] = leaseToAdd;
-    Map<String, dynamic> leaseForDb = Map.from(leaseToAdd);
+    Map leaseForDb = leaseToAdd.deepcopy();
     leaseForDb.remove("vehicles");
     await supabase.from("lease").insert(leaseForDb);
     notifyListeners();

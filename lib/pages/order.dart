@@ -21,13 +21,15 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context);
+    String text = orderProvider.lease.toString();
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
-        final newOrder = orderProvider.lease[0];
-        newOrder.id = 100;
-        orderProvider.addOrder(newOrder);
-        print(orderProvider.lease);
+        // final newOrder = orderProvider.lease["100"];
+        // newOrder['id'] = 101;
+        orderProvider.modifyLeaseDuration(101, 24);
+        text = orderProvider.lease.toString();
       }),
+      body: Center(child: Text(text)),
     );
   }
 }
