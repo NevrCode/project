@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:project/pages/add_location.dart';
 import 'package:project/pages/component/detail_desc.dart';
 import 'package:project/pages/component/vehicle_card.dart';
+import 'package:project/services/location_provider.dart';
 import 'package:project/util/util.dart';
+import 'package:provider/provider.dart';
 
 class SaveLocationPage extends StatefulWidget {
   const SaveLocationPage({super.key});
@@ -17,6 +19,8 @@ class SaveLocationPage extends StatefulWidget {
 class _SaveLocationPageState extends State<SaveLocationPage> {
   @override
   Widget build(BuildContext context) {
+    final alamat =
+        Provider.of<LocationProvider>(context, listen: false).locations;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 254, 251),
       appBar: AppBar(
@@ -28,8 +32,9 @@ class _SaveLocationPageState extends State<SaveLocationPage> {
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: 3,
+            itemCount: alamat.length,
             itemBuilder: (context, index) {
+              final a = alamat[index];
               return Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -39,51 +44,40 @@ class _SaveLocationPageState extends State<SaveLocationPage> {
                     ),
                   ),
                 ),
-                child: ExpansionTile(
-                  showTrailingIcon: false,
-                  shape:
-                      Border.all(color: const Color.fromARGB(0, 255, 255, 255)),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 15, 10),
-                        child: Center(child: CostumText(data: "Nama")),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                        child: Center(child: CostumText(data: "Kabupaten")),
-                      ),
-                    ],
-                  ),
-                  children: <Widget>[
-                    Builder(builder: (context) {
-                      return Column(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 7),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 7),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // pake to map
-                                Flexible(
-                                  child: DetailDescription(
-                                      attribute: "RT", value: "02"),
-                                ),
-                              ],
+                          // pake to map
+                          Flexible(
+                            child: CostumText(
+                              data: a.locationName!,
+                              size: 18,
                             ),
                           ),
                         ],
-                      );
-                    }),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(14, 10, 10, 10),
+                      child: CostumText(
+                        data:
+                            "jl.${a.streetName} RT ${a.rtNumber}/RW ${a.rwNumber} no.${a.streetNumber}, ${a.kecamatan}, ${a.kabupatenOrKota}",
+                        size: 14,
+                        color: const Color.fromARGB(255, 151, 151, 151),
+                      ),
+                    )
                   ],
                 ),
               );
             },
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+            padding: const EdgeInsets.fromLTRB(18, 16, 8, 0),
             child: MyButton(
                 onTap: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(

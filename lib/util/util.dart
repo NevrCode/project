@@ -117,7 +117,7 @@ class CostumTextField extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(radius),
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 0),
             filled: true,
             fillColor: const Color.fromARGB(255, 248, 248, 248),
           ),

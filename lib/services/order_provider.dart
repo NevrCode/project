@@ -8,9 +8,11 @@ class OrderProvider with ChangeNotifier {
   Map<String, dynamic> orderItems = {};
 
 
-  Future<void> fetchData(String uid) async {
-    final res =
-        await supabase.from('lease').select("*, vehicles(*)").eq("uid", uid);
+  Future<void> fetchData() async {
+    final res = await supabase
+        .from('lease')
+        .select("*, vehicles(*)")
+        .eq("uid", supabase.auth.currentUser!.id);
 
     lease = res.map((e) => LeaseModel.fromMap(e)).toList();
 

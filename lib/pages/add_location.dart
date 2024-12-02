@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project/main.dart';
+import 'package:project/model/location_model.dart';
 import 'package:project/pages/saved_location.dart';
+import 'package:project/services/location_provider.dart';
 import 'package:project/util/util.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddLocationPage extends StatefulWidget {
   const AddLocationPage({super.key});
@@ -10,6 +15,7 @@ class AddLocationPage extends StatefulWidget {
 }
 
 class _AddLocationPageState extends State<AddLocationPage> {
+  var uuid = Uuid();
   final TextEditingController _street = TextEditingController();
   final TextEditingController _rt = TextEditingController();
   final TextEditingController _rw = TextEditingController();
@@ -17,6 +23,22 @@ class _AddLocationPageState extends State<AddLocationPage> {
   final TextEditingController _kota = TextEditingController();
   final TextEditingController _camat = TextEditingController();
   final TextEditingController _addressName = TextEditingController();
+
+  void addLocation(BuildContext ctx) async {
+    print(supabase.auth.currentUser!.id);
+    Provider.of<LocationProvider>(ctx, listen: false).addData({
+      'location_id': uuid.v1(),
+      'location_name': _addressName.text,
+      'street_name': _street.text,
+      'rt_number': _rt.text,
+      'rw_number': _rw.text,
+      'street_number': _no.text,
+      'kecamatan': _camat.text,
+      'kabupaten_or_kota': _kota.text,
+      'user_id': supabase.auth.currentUser!.id,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +101,14 @@ class _AddLocationPageState extends State<AddLocationPage> {
                     ],
                   ),
                   CostumTextField(
+                    padding: EdgeInsets.fromLTRB(18, 8, 8, 18),
+                    controller: _no,
+                    radius: 12,
+                    icon: Icons.numbers,
+                    labelText: "No.",
+                    inputType: TextInputType.number,
+                  ),
+                  CostumTextField(
                       controller: _camat, radius: 12, labelText: "kecamatan"),
                   CostumTextField(
                       controller: _kota, radius: 12, labelText: "Kota"),
@@ -98,7 +128,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                             elevation: WidgetStateProperty.all(0),
                           ),
                           onPressed: () async {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
@@ -123,7 +153,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                                 const Color.fromARGB(255, 255, 238, 0)),
                             elevation: WidgetStateProperty.all(2),
                           ),
-                          onPressed: () {},
+                          onPressed: () => {addLocation(context)},
                           child: const Text(
                             'Tambah ',
                             style: TextStyle(

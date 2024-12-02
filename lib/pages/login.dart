@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../services/location_provider.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -192,6 +194,17 @@ class _LoginPageState extends State<LoginPage> {
                               await auth.signInWithPass(email, password);
 
                               if (auth.user != null && mounted) {
+                                Provider.of<VehicleProvider>(context,
+                                        listen: false)
+                                    .fetchData();
+
+                                Provider.of<OrderProvider>(context,
+                                        listen: false)
+                                    .fetchData();
+                                Provider.of<LocationProvider>(context,
+                                        listen: false)
+                                    .fetchData();
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     duration: const Duration(seconds: 1),
@@ -213,9 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                                   auth.user!.id,
                                   auth.user!.email!,
                                 );
-                                Provider.of<OrderProvider>(context,
-                                        listen: false)
-                                    .fetchData(supabase.auth.currentUser!.id);
+
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

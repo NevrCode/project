@@ -21,7 +21,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => VehicleProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
-        ChangeNotifierProvider(create: (context) => LocationProvider())
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
 
         // Add more providers here
       ],
@@ -61,6 +61,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Provider.of<VehicleProvider>(context, listen: false).fetchData();
+    if (supabase.auth.currentUser != null) {
+      Provider.of<OrderProvider>(context, listen: false).fetchData();
+      Provider.of<LocationProvider>(context, listen: false).fetchData();
+    }
     if (_isCheckingSession) {
       return const MaterialApp(
         home: Scaffold(
