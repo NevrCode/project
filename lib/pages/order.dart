@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:path/path.dart';
-import 'package:project/model/lease_model.dart';
+import 'package:project/main.dart';
+import 'package:project/model/transaction_model.dart';
 import 'package:project/pages/order_detail.dart';
 import 'package:project/util/util.dart';
 import 'package:provider/provider.dart';
@@ -19,27 +19,51 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
   final expansionController = ExpansionTileController();
+  bool isLoading = true;
+  List<TransactionModel> order = [];
+  Future<void> getData() async {
+    try {
+      final res = await supabase
+          .from("transactions")
+          .select('*, locations(*)')
+          .order('lease_start_date');
+      setState(() {
+        order = res.map((e) => TransactionModel.fromMap(e)).toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final orderProvider = Provider.of<OrderProvider>(context, listen: false);
-    final order = orderProvider.lease;
     return SingleChildScrollView(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const OrderDetailPage()));
-        },
-        child: Column(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: order.length,
-              itemBuilder: (context, index) {
-                final item = order[index];
-                return Padding(
-                  padding: const EdgeInsets.all(18.0),
+      child: Column(
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: order.length,
+            itemBuilder: (context, index) {
+              final item = order[index];
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OrderDetailPage(
+                              transId: item.id,
+                            )));
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -59,19 +83,20 @@ class _OrderPageState extends State<OrderPage> {
                             width: 130,
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                  BorderRadius.all(Radius.circular(12)),
                               color: item.status == "Diproses"
-                                  ? Colors.yellow
+                                  ? const Color.fromARGB(255, 255, 239, 150)
                                   : item.status == "Menunggu Pembayaran"
-                                      ? const Color.fromARGB(255, 230, 83, 83)
-                                      : Colors.green,
+                                      ? const Color.fromARGB(255, 255, 192, 192)
+                                      : const Color.fromARGB(
+                                          255, 108, 231, 129),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
                               child: Center(
                                   child: CostumText(
                                 data: item.status,
-                                color: Colors.white,
+                                color: const Color.fromARGB(255, 31, 31, 31),
                               )),
                             ),
                           ),
@@ -83,14 +108,13 @@ class _OrderPageState extends State<OrderPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               CostumText(
-                                data: item.id.toString(),
+                                data: item.id.substring(0, 22),
                                 color: const Color.fromARGB(255, 37, 37, 37),
                                 align: TextAlign.end,
                                 size: 14,
                               ),
                               CostumText(
-                                data: DateFormat('EEE, MM-dd-yyyy')
-                                    .format(item.leaseStartDate),
+                                data: item.projectLocation['kabupaten_or_kota'],
                                 color: const Color.fromARGB(255, 116, 116, 116),
                                 align: TextAlign.end,
                                 size: 14,
@@ -101,53 +125,16 @@ class _OrderPageState extends State<OrderPage> {
                       ],
                     ),
                   ),
-                );
-              },
-            ),
-          ],
-        ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
 
-  void changeStatus(context, int id) async {
+  void changeStatus(context, int id, String status) async {
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
-    await orderProvider.changeStatus(id);
-  }
-
-  void _showConfirmationDialog(BuildContext context, LeaseModel item) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: CostumText(data: "Are you sure?"),
-          actions: [
-            MyButton(
-              color: Colors.white,
-              overlay: const Color.fromARGB(255, 235, 226, 226),
-              elevation: 0,
-              height: 40,
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: CostumText(data: "No"),
-            ),
-            MyButton(
-              color: const Color.fromARGB(255, 231, 205, 54),
-              overlay: const Color.fromARGB(255, 235, 226, 226),
-              elevation: 0,
-              height: 40,
-              onTap: () {
-                changeStatus(context, item.id);
-                setState(() {});
-                Navigator.of(context).pop();
-              },
-              child: CostumText(data: "Yes"),
-            ),
-          ],
-        );
-      },
-    );
   }
 }

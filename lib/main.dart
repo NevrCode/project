@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/services/auth_provider.dart';
+import 'package:project/services/cart_provider.dart';
 import 'package:project/services/location_provider.dart';
 import 'package:project/services/order_provider.dart';
 import 'package:project/services/shared_preference_service.dart';
@@ -10,6 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
+  Stripe.publishableKey =
+      "pk_test_51QRpopAuTZ1Aldd1TX11gUvIZetpikDCCR5qlDdc6YoaVkVHYcwNFVdEwfGYAS3czbCruQbOm79Ta7TlXofi6wyJ00Fvxj6q0y"; // Replace with your Stripe publishable key
+
   await Supabase.initialize(
     url: 'https://lxoikupearehebbuyday.supabase.co',
     anonKey:
@@ -22,6 +27,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => VehicleProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => LocationProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
 
         // Add more providers here
       ],
@@ -62,7 +68,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Provider.of<VehicleProvider>(context, listen: false).fetchData();
     if (supabase.auth.currentUser != null) {
-      Provider.of<OrderProvider>(context, listen: false).fetchData();
+      Provider.of<OrderProvider>(context, listen: false).fetchTrans();
       Provider.of<LocationProvider>(context, listen: false).fetchData();
     }
     if (_isCheckingSession) {

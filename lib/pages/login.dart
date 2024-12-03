@@ -198,9 +198,6 @@ class _LoginPageState extends State<LoginPage> {
                                         listen: false)
                                     .fetchData();
 
-                                Provider.of<OrderProvider>(context,
-                                        listen: false)
-                                    .fetchData();
                                 Provider.of<LocationProvider>(context,
                                         listen: false)
                                     .fetchData();

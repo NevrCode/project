@@ -46,36 +46,35 @@ class _IndexState extends State<Index> {
     pageController = PageController(initialPage: 0);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 253, 248),
-      appBar: _tabIndex == 3
-          ? null
-          : AppBar(
-              backgroundColor: const Color.fromARGB(255, 255, 252, 242),
-              title: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        _tabIndex == 0
-                            ? "HeavyHub"
-                            : _tabIndex == 1
-                                ? "Transaction"
-                                : "",
-                        style: const TextStyle(fontFamily: 'Gotham-Bold'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Divider(
-                        height: 0.2,
-                        indent: 155,
-                        endIndent: 155,
-                      )
-                    ],
-                  ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color.fromARGB(255, 255, 252, 242),
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  _tabIndex == 0
+                      ? "HeavyHub"
+                      : _tabIndex == 1
+                          ? "Transaction"
+                          : "",
+                  style: const TextStyle(fontFamily: 'Gotham-Bold'),
                 ),
-              ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Divider(
+                  height: 0.2,
+                  indent: 155,
+                  endIndent: 155,
+                )
+              ],
             ),
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         iconSize: 27,

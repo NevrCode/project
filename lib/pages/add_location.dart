@@ -25,7 +25,6 @@ class _AddLocationPageState extends State<AddLocationPage> {
   final TextEditingController _addressName = TextEditingController();
 
   void addLocation(BuildContext ctx) async {
-    print(supabase.auth.currentUser!.id);
     Provider.of<LocationProvider>(ctx, listen: false).addData({
       'location_id': uuid.v1(),
       'location_name': _addressName.text,
