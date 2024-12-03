@@ -237,14 +237,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                               children: [
                                                 CostumText(
                                                   data:
-                                                      "${item.transaction['rental_hours'].toString()} Hours",
-                                                  color: const Color.fromARGB(
-                                                      255, 138, 138, 138),
-                                                  size: 13,
-                                                ),
-                                                CostumText(
-                                                  data:
-                                                      "${item.quantity.toString()}x",
+                                                      "${item.transaction['rental_hours'].toString()} Jam (${item.transaction['rental_hours'] ~/ 24} Hari)",
                                                   color: const Color.fromARGB(
                                                       255, 138, 138, 138),
                                                   size: 13,
@@ -264,6 +257,13 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                               size: 13,
                                               color: const Color.fromARGB(
                                                   255, 143, 143, 143),
+                                            ),
+                                            CostumText(
+                                              data:
+                                                  "${item.quantity.toString()}x",
+                                              color: const Color.fromARGB(
+                                                  255, 138, 138, 138),
+                                              size: 13,
                                             ),
                                           ],
                                         ),
@@ -440,16 +440,16 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                       color: Colors.white,
                                       overlay: const Color.fromARGB(
                                           115, 240, 130, 130),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Icon(Icons.arrow_back,
-                                              color: const Color.fromARGB(
+                                              color: Color.fromARGB(
                                                   255, 202, 43, 43)),
                                           CostumText(
                                             data: "Back  ",
-                                            color: const Color.fromARGB(
+                                            color: Color.fromARGB(
                                                 255, 116, 116, 116),
                                           )
                                         ],

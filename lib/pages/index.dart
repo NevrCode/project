@@ -37,8 +37,9 @@ class _IndexState extends State<Index> {
   int get tabIndex => _tabIndex;
   late PageController pageController;
   set tabIndex(int v) {
-    _tabIndex = v;
-    setState(() {});
+    setState(() {
+      _tabIndex = v;
+    });
   }
 
   @override
