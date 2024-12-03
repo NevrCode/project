@@ -38,6 +38,16 @@ class _AddLocationPageState extends State<AddLocationPage> {
     });
   }
 
+  void clear() {
+    _street.clear();
+    _addressName.clear();
+    _rt.clear();
+    _rw.clear();
+    _no.clear();
+    _camat.clear();
+    _kota.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +162,21 @@ class _AddLocationPageState extends State<AddLocationPage> {
                                 const Color.fromARGB(255, 255, 238, 0)),
                             elevation: WidgetStateProperty.all(2),
                           ),
-                          onPressed: () => {addLocation(context)},
+                          onPressed: () {
+                            addLocation(context);
+                            clear();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: Duration(seconds: 2),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 108, 221, 42),
+                                content: CostumText(
+                                    color: const Color.fromARGB(
+                                        255, 252, 252, 252),
+                                    data: 'Berhasil Menambahkan Alamat'),
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Tambah ',
                             style: TextStyle(

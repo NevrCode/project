@@ -33,31 +33,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 230, 230, 230)),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      children: [],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CostumText(
-                          data:
-                              "Welcome, ${supabase.auth.currentUser!.userMetadata!['displayName']}"),
-                    )
-                  ],
-                ),
-              ),
-            ),
             const SizedBox(
               height: 10,
             ),

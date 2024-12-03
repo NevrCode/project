@@ -253,16 +253,14 @@ class _DetailPageState extends State<DetailPage> {
                             width: 100,
                             color: Colors.white,
                             overlay: const Color.fromARGB(115, 240, 130, 130),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Icon(Icons.arrow_back,
-                                    color:
-                                        const Color.fromARGB(255, 202, 43, 43)),
+                                    color: Color.fromARGB(255, 202, 43, 43)),
                                 CostumText(
                                   data: "Back  ",
-                                  color:
-                                      const Color.fromARGB(255, 116, 116, 116),
+                                  color: Color.fromARGB(255, 116, 116, 116),
                                 )
                               ],
                             ),
@@ -277,16 +275,15 @@ class _DetailPageState extends State<DetailPage> {
                             width: 240,
                             color: const Color(0xffffd500),
                             overlay: const Color.fromARGB(115, 228, 216, 58),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CostumText(
                                   data: "Add to Cart",
-                                  color: const Color.fromARGB(255, 49, 49, 49),
+                                  color: Color.fromARGB(255, 49, 49, 49),
                                 ),
                                 Icon(Icons.shopping_cart_checkout_rounded,
-                                    color:
-                                        const Color.fromARGB(255, 65, 65, 65)),
+                                    color: Color.fromARGB(255, 65, 65, 65)),
                               ],
                             ),
                           ),
@@ -365,88 +362,92 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: CostumText(
                         data: "Location",
                         size: 18,
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: loc.length,
-                      itemBuilder: (context, index) {
-                        final a = loc[index];
-                        final isSelected =
-                            selectedLoc?.locationName == a.locationName;
+                    SizedBox(
+                      height: 204,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: loc.length,
+                        itemBuilder: (context, index) {
+                          final a = loc[index];
+                          final isSelected =
+                              selectedLoc?.locationName == a.locationName;
 
-                        return GestureDetector(
-                          onTap: () {
-                            setModalState(() {
-                              selectedLoc = a;
-                              print(selectedLoc); // Debugging
-                            });
-                            // Navigator.pop(context, selectedLoc);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? Colors.blue.withOpacity(0.1)
-                                  : Colors.white,
-                              border: const Border(
-                                bottom: BorderSide(
-                                  color: Color.fromARGB(255, 221, 221, 221),
+                          return GestureDetector(
+                            onTap: () {
+                              setModalState(() {
+                                selectedLoc = a;
+                                print(selectedLoc); // Debugging
+                              });
+                              // Navigator.pop(context, selectedLoc);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? Colors.blue.withOpacity(0.1)
+                                    : Colors.white,
+                                border: const Border(
+                                  bottom: BorderSide(
+                                    color: Color.fromARGB(255, 221, 221, 221),
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 7),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          a.locationName!,
-                                          style: TextStyle(
-                                            fontFamily: 'Gotham-regular',
-                                            fontSize: 18,
-                                            fontWeight: isSelected
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 7),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            a.locationName!,
+                                            style: TextStyle(
+                                              fontFamily: 'Gotham-regular',
+                                              fontSize: 18,
+                                              fontWeight: isSelected
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      if (isSelected)
-                                        const Icon(Icons.check,
-                                            color: Colors.blue),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(14, 10, 10, 10),
-                                  child: Text(
-                                    "jl.${a.streetName} RT ${a.rtNumber}/RW ${a.rwNumber} no.${a.streetNumber}, ${a.kecamatan}, ${a.kabupatenOrKota}",
-                                    style: const TextStyle(
-                                      fontFamily: 'Gotham-regular',
-                                      fontSize: 14,
-                                      color: Color.fromARGB(255, 151, 151, 151),
+                                        if (isSelected)
+                                          const Icon(Icons.check,
+                                              color: Colors.blue),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        14, 10, 10, 10),
+                                    child: Text(
+                                      "jl.${a.streetName} RT ${a.rtNumber}/RW ${a.rwNumber} no.${a.streetNumber}, ${a.kecamatan}, ${a.kabupatenOrKota}",
+                                      style: const TextStyle(
+                                        fontFamily: 'Gotham-regular',
+                                        fontSize: 14,
+                                        color:
+                                            Color.fromARGB(255, 151, 151, 151),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -463,19 +464,19 @@ class _DetailPageState extends State<DetailPage> {
                                       1);
                                   Navigator.pop(context);
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       duration: Duration(seconds: 2),
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 108, 221, 42),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 108, 221, 42),
                                       content: CostumText(
-                                          color: const Color.fromARGB(
+                                          color: Color.fromARGB(
                                               255, 252, 252, 252),
                                           data: 'Item Berhasil Ditambahkan'),
                                     ),
                                   );
                                 }
                               },
-                              child: CostumText(
+                              child: const CostumText(
                                 data: "Submit",
                               )),
                         ],

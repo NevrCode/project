@@ -48,22 +48,21 @@ class _SaveLocationPageState extends State<SaveLocationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 7),
+                      padding: const EdgeInsets.fromLTRB(18, 10, 18, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // pake to map
                           Flexible(
                             child: CostumText(
                               data: a.locationName!,
-                              size: 18,
+                              size: 16,
                             ),
                           ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(14, 10, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(18, 0, 18, 10),
                       child: CostumText(
                         data:
                             "jl.${a.streetName} RT ${a.rtNumber}/RW ${a.rwNumber} no.${a.streetNumber}, ${a.kecamatan}, ${a.kabupatenOrKota}",
