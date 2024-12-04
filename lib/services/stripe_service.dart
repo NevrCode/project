@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter_stripe/flutter_stripe.dart';
+import "package:http/http.dart" as http;
 
 class StripeService {
+  StripeService._();
+  static final StripeService instance = StripeService._();
+
   Future<void> makePayment(int amount) async {
     try {
       String? paymentIntentClientSecret = await _createPaymentIntent(
@@ -13,6 +19,7 @@ class StripeService {
         ),
       );
       await _processPayment();
+      print("done");
     } catch (e) {
       print(e);
     }
@@ -20,25 +27,29 @@ class StripeService {
 
   Future<String?> _createPaymentIntent(int amount, String currency) async {
     try {
-      Map<String, dynamic> data = {
+      Uri url = Uri.parse("https://api.stripe.com/v1/payment_intents");
+      final response = await http.post(url, headers: {
+        "Authorization":
+            "Bearer sk_test_51QRpopAuTZ1Aldd1IQMbs2SHD3oznUkjPhFhpOu9Z8cJqSwvAdLPYzwzxxxBAi6N6gQxzaRx4Blw66bD7m2LD7ub00j2bVBkgR",
+        "Content-Type": 'application/x-www-form-urlencoded'
+      }, body: {
         "amount": amount,
         "currency": currency,
-      };
-      var response = await http.post(
-        "https://api.stripe.com/v1/payment_intents",
-        data: data,
-        options: Options(
-          contentType: Headers.formUrlEncodedContentType,
-          headers: {
-            "Authorization": "Bearer $stripeSecretKey",
-            "Content-Type": 'application/x-www-form-urlencoded'
-          },
+        "payment_method_types": ["card"],
+      });
+      if (response.statusCode != 200) {
+        throw Exception('Failed to create payment intent: ${response.body}');
+      }
+      final paymentIntent = json.decode(response.body);
+      final clientSecret = paymentIntent['client_secret'];
+
+      // Step 2: Confirm the PaymentIntent
+      await Stripe.instance.confirmPayment(
+        paymentIntentClientSecret: clientSecret,
+        data: const PaymentMethodParams.card(
+          paymentMethodData: PaymentMethodData(),
         ),
       );
-      if (response.data != null) {
-        return response.data["client_secret"];
-      }
-      return null;
     } catch (e) {
       print(e);
     }
