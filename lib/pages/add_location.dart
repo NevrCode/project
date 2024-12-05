@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
-import 'package:project/model/location_model.dart';
 import 'package:project/pages/saved_location.dart';
 import 'package:project/services/location_provider.dart';
 import 'package:project/util/util.dart';
@@ -15,7 +14,7 @@ class AddLocationPage extends StatefulWidget {
 }
 
 class _AddLocationPageState extends State<AddLocationPage> {
-  var uuid = Uuid();
+  var uuid = const Uuid();
   final TextEditingController _street = TextEditingController();
   final TextEditingController _rt = TextEditingController();
   final TextEditingController _rw = TextEditingController();
@@ -54,7 +53,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CostumText(data: "Tambah lokasi baru"),
+        title: const CostumText(data: "Tambah lokasi baru"),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -87,11 +86,11 @@ class _AddLocationPageState extends State<AddLocationPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CostumText(data: "RT/RW"),
+                      const CostumText(data: "RT/RW"),
                       SizedBox(
                         width: 130,
                         child: CostumTextField(
-                          padding: EdgeInsets.fromLTRB(18, 8, 8, 18),
+                          padding: const EdgeInsets.fromLTRB(18, 8, 8, 18),
                           controller: _rt,
                           radius: 12,
                           labelText: "",
@@ -101,7 +100,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                       SizedBox(
                         width: 130,
                         child: CostumTextField(
-                            padding: EdgeInsets.fromLTRB(8, 8, 18, 18),
+                            padding: const EdgeInsets.fromLTRB(8, 8, 18, 18),
                             controller: _rw,
                             radius: 12,
                             inputType: TextInputType.number,
@@ -110,7 +109,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                     ],
                   ),
                   CostumTextField(
-                    padding: EdgeInsets.fromLTRB(18, 8, 8, 18),
+                    padding: const EdgeInsets.fromLTRB(18, 8, 8, 18),
                     controller: _no,
                     radius: 12,
                     icon: Icons.numbers,
@@ -166,12 +165,12 @@ class _AddLocationPageState extends State<AddLocationPage> {
                             addLocation(context);
                             clear();
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 duration: Duration(seconds: 2),
                                 backgroundColor:
-                                    const Color.fromARGB(255, 108, 221, 42),
+                                    Color.fromARGB(255, 108, 221, 42),
                                 content: CostumText(
-                                    color: const Color.fromARGB(
+                                    color: Color.fromARGB(
                                         255, 252, 252, 252),
                                     data: 'Berhasil Menambahkan Alamat'),
                               ),

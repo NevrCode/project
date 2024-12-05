@@ -1,17 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/model/detail_transaction_model.dart';
-import 'package:project/model/location_model.dart';
 import 'package:project/model/transaction_model.dart';
 import 'package:project/model/vehicle_model.dart';
 import 'package:uuid/uuid.dart';
 
 class OrderProvider with ChangeNotifier {
-  List<DetailTransactionModel> _item = [];
+  final List<DetailTransactionModel> _item = [];
   List<TransactionModel> _trans = [];
 
   List<DetailTransactionModel> get item => _item;
@@ -51,7 +50,7 @@ class OrderProvider with ChangeNotifier {
           "user_id": supabase.auth.currentUser!.id,
         });
         if (res != null) {
-          print("Error inserting transaction: ${res.message}");
+          log("Error inserting transaction: ${res.message}");
           return; // Exit early if the first query fails
         }
         await detailTransactions.insert({

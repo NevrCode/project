@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/login.dart';
-import 'package:project/pages/order.dart';
 import 'package:project/pages/saved_location.dart';
 import 'package:project/services/auth_provider.dart';
-import 'package:project/services/location_provider.dart';
-import 'package:project/services/order_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,7 +15,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-
     final auth = Provider.of<AuthProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Stack(
@@ -77,11 +73,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SaveLocationPage()));
+                                builder: (context) =>
+                                    const SaveLocationPage()));
                           },
                           style: ButtonStyle(
-                            overlayColor: WidgetStatePropertyAll(
-                                const Color.fromARGB(255, 230, 230, 230)),
+                            overlayColor: const WidgetStatePropertyAll(
+                                Color.fromARGB(255, 230, 230, 230)),
                             shape: const WidgetStatePropertyAll(LinearBorder(
                               side: BorderSide(
                                 color: Color.fromARGB(255, 92, 92, 92),
@@ -175,7 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),

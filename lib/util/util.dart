@@ -61,7 +61,7 @@ class MyButton extends StatelessWidget {
         shape: WidgetStatePropertyAll(RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius))),
         fixedSize: WidgetStatePropertyAll(Size(width, height)),
-        padding: WidgetStatePropertyAll(const EdgeInsets.fromLTRB(0, 0, 0, 0)),
+        padding: const WidgetStatePropertyAll(EdgeInsets.fromLTRB(0, 0, 0, 0)),
         backgroundColor: WidgetStatePropertyAll(color),
         elevation: WidgetStatePropertyAll(elevation),
       ),
@@ -95,7 +95,7 @@ class CostumTextField extends StatelessWidget {
       padding: padding,
       child: SizedBox(
         child: TextField(
-          style: TextStyle(fontFamily: "Gotham-regular"),
+          style: const TextStyle(fontFamily: "Gotham-regular"),
           controller: controller,
           keyboardType: inputType,
           decoration: InputDecoration(
@@ -103,7 +103,7 @@ class CostumTextField extends StatelessWidget {
             labelStyle: const TextStyle(color: Color.fromARGB(255, 75, 75, 75)),
             prefixIcon: Icon(
               icon,
-              color: Color.fromARGB(255, 20, 20, 20),
+              color: const Color.fromARGB(255, 20, 20, 20),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.white),

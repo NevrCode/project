@@ -1,4 +1,3 @@
-import 'package:project/model/vehicle_model.dart';
 
 class TransactionModel {
   String id;
