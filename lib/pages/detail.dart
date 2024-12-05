@@ -1,14 +1,10 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:project/main.dart';
 import 'package:project/model/detail_vehicle_model.dart';
 import 'package:project/model/location_model.dart';
 import 'package:project/model/vehicle_model.dart';
 import 'package:project/pages/component/detail_desc.dart';
-import 'package:project/pages/component/icon_box.dart';
-import 'package:project/services/cart_provider.dart';
 import 'package:project/services/order_provider.dart';
 import 'package:project/util/util.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   late Future<DetailVehicleModel> _futureDetail;
   final _formKey = GlobalKey<FormState>();
   final _rentController = TextEditingController();
-  final _locationController = TextEditingController();
+  // final _locationController = TextEditingController();
   LocationModel? selectedLoc;
   List<LocationModel> loc = [];
   bool isLoading = true;
@@ -75,7 +71,7 @@ class _DetailPageState extends State<DetailPage> {
         title: Column(
           children: [
             Center(child: CostumText(data: widget.vehicle.modelName)),
-            Divider(
+            const Divider(
               indent: 140,
               endIndent: 140,
             ),
@@ -86,9 +82,9 @@ class _DetailPageState extends State<DetailPage> {
         future: _futureDetail,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
                 child: CircularProgressIndicator(
-              color: const Color.fromARGB(255, 197, 178, 10),
+              color: Color.fromARGB(255, 197, 178, 10),
             ));
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -140,9 +136,9 @@ class _DetailPageState extends State<DetailPage> {
                                 color: const Color.fromARGB(255, 151, 9, 9),
                                 size: 18,
                               ),
-                              CostumText(
+                              const CostumText(
                                 data: "/hr",
-                                color: const Color.fromARGB(255, 87, 38, 38),
+                                color: Color.fromARGB(255, 87, 38, 38),
                                 size: 16,
                               ),
                             ],
@@ -152,9 +148,9 @@ class _DetailPageState extends State<DetailPage> {
                           padding: const EdgeInsets.fromLTRB(8, 0, 20, 0),
                           child: Row(
                             children: [
-                              CostumText(
+                              const CostumText(
                                 data: "min : ",
-                                color: const Color.fromARGB(255, 156, 156, 156),
+                                color: Color.fromARGB(255, 156, 156, 156),
                                 size: 16,
                               ),
                               CostumText(
@@ -322,7 +318,7 @@ class _DetailPageState extends State<DetailPage> {
                       padding: const EdgeInsets.all(4.0),
                       child: SizedBox(
                         child: TextFormField(
-                          style: TextStyle(fontFamily: "Gotham-regular"),
+                          style: const TextStyle(fontFamily: "Gotham-regular"),
                           controller: _rentController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -334,7 +330,7 @@ class _DetailPageState extends State<DetailPage> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide: const BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             border: OutlineInputBorder(
@@ -355,7 +351,7 @@ class _DetailPageState extends State<DetailPage> {
                               return 'Please enter a valid number';
                             }
                             if (number < widget.vehicle.minimumHours) {
-                              return 'minimal ${widget.vehicle.minimumHours} jam untuk menyewa';
+                              return 'Minimal ${widget.vehicle.minimumHours} jam untuk menyewa';
                             }
                             return null;
                           },
@@ -383,7 +379,7 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {
                               setModalState(() {
                                 selectedLoc = a;
-                                print(selectedLoc); // Debugging
+                                // print(selectedLoc); // Debugging
                               });
                               // Navigator.pop(context, selectedLoc);
                             },

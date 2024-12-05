@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_stripe/flutter_stripe.dart';
 import "package:http/http.dart" as http;
@@ -10,18 +11,24 @@ class StripeService {
   Future<void> makePayment(int amount) async {
     try {
       String? paymentIntentClientSecret = await _createPaymentIntent(
-          amount * 100, "idr"); // stripe accepts cents
+          amount * 1000, "idr"); // stripe accepts cents
+
       if (paymentIntentClientSecret == null) return;
+
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntentClientSecret,
           merchantDisplayName: "HeavyHub",
         ),
       );
+
       await _processPayment();
-      print("done");
     } catch (e) {
-      print(e);
+      if (e is StripeException && e.error.code == FailureCode.Canceled) {
+        rethrow;
+      } else {
+        log(e.toString());
+      }
     }
   }
 
@@ -33,25 +40,25 @@ class StripeService {
             "Bearer sk_test_51QRpopAuTZ1Aldd1IQMbs2SHD3oznUkjPhFhpOu9Z8cJqSwvAdLPYzwzxxxBAi6N6gQxzaRx4Blw66bD7m2LD7ub00j2bVBkgR",
         "Content-Type": 'application/x-www-form-urlencoded'
       }, body: {
-        "amount": amount,
-        "currency": currency,
-        "payment_method_types": ["card"],
+        'amount': '$amount',
+        'currency': currency,
+        'payment_method_types[]': 'card',
       });
       if (response.statusCode != 200) {
         throw Exception('Failed to create payment intent: ${response.body}');
       }
       final paymentIntent = json.decode(response.body);
       final clientSecret = paymentIntent['client_secret'];
-
       // Step 2: Confirm the PaymentIntent
-      await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
-        data: const PaymentMethodParams.card(
-          paymentMethodData: PaymentMethodData(),
-        ),
-      );
+      // await Stripe.instance.confirmPayment(
+      //   paymentIntentClientSecret: clientSecret,
+      //   data: const PaymentMethodParams.card(
+      //     paymentMethodData: PaymentMethodData(),
+      //   ),
+      // );
+      return clientSecret as String;
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
     return null;
   }
@@ -59,9 +66,13 @@ class StripeService {
   Future<void> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      await Stripe.instance.confirmPaymentSheetPayment();
+      // await Stripe.instance.confirmPaymentSheetPayment();
     } catch (e) {
-      print(e);
+      if (e is StripeException && e.error.code == FailureCode.Canceled) {
+        rethrow;
+      } else {
+        log(e.toString());
+      }
     }
   }
 }

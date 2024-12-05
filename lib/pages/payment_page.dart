@@ -10,6 +10,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  Map<String, dynamic>? cardDetails; // To track card details completion
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class _PaymentPageState extends State<PaymentPage> {
           onPressed: () async {
             StripeService.instance.makePayment(10000);
           },
-          child: Text('Pay'),
+          child: const Text('Pay'),
         ),
       ),
     );

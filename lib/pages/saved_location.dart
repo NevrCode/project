@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project/pages/add_location.dart';
-import 'package:project/pages/component/detail_desc.dart';
-import 'package:project/pages/component/vehicle_card.dart';
 import 'package:project/services/location_provider.dart';
 import 'package:project/util/util.dart';
 import 'package:provider/provider.dart';
