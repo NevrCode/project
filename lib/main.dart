@@ -12,9 +12,11 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
       "pk_test_51QRpopAuTZ1Aldd1TX11gUvIZetpikDCCR5qlDdc6YoaVkVHYcwNFVdEwfGYAS3czbCruQbOm79Ta7TlXofi6wyJ00Fvxj6q0y"; // Replace with your Stripe publishable key
-
+  Stripe.merchantIdentifier = 'HeavyHub';
+  await Stripe.instance.applySettings();
   await Supabase.initialize(
     url: 'https://lxoikupearehebbuyday.supabase.co',
     anonKey:

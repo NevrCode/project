@@ -69,7 +69,7 @@ class VehicleCard extends StatelessWidget {
                       ),
                       CostumText(
                           data:
-                              "${formatCurrency(vehicle.rentPriceHourly.toString())}")
+                              formatCurrency(vehicle.rentPriceHourly.toString()))
                     ],
                   ),
                 ],

@@ -1,13 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project/main.dart';
 import 'package:project/model/detail_transaction_model.dart';
-import 'package:project/model/vehicle_model.dart';
-import 'package:project/pages/index.dart';
-import 'package:project/pages/order.dart';
-import 'package:project/services/order_provider.dart';
 import 'package:project/util/util.dart';
-import 'package:provider/provider.dart';
+import 'package:project/services/stripe_service.dart';
 
 class OrderDetailPage extends StatefulWidget {
   const OrderDetailPage({super.key, required this.transId});
@@ -78,7 +76,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CostumText(data: "Detail Pesanan"),
+        title: const CostumText(data: "Detail Pesanan"),
       ),
       body: isLoading
           ? const Center(
@@ -119,7 +117,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Container(
@@ -149,15 +147,15 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(12),
                             topRight: Radius.circular(12)),
-                        color: const Color.fromARGB(255, 250, 227, 96),
+                        color: Color.fromARGB(255, 250, 227, 96),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -201,8 +199,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                         child: ClipRRect(
                                           clipBehavior: Clip.hardEdge,
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                              boxShadow: const [
+                                            decoration: const BoxDecoration(
+                                              boxShadow: [
                                                 BoxShadow(
                                                     offset: Offset(0.1, 0.1),
                                                     blurRadius: 1)
@@ -278,24 +276,24 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       },
                     ),
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(12),
                             bottomRight: Radius.circular(12)),
-                        color: const Color.fromARGB(255, 243, 243, 243),
+                        color: Color.fromARGB(255, 243, 243, 243),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(12, 20, 12, 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CostumText(data: "total"),
+                            const CostumText(data: "Total"),
                             CostumText(
                               data: formatCurrency(total.toString()),
                               color: vehicle[0].transaction['status'] ==
                                       "Menunggu Pembayaran"
                                   ? const Color.fromARGB(255, 185, 0, 0)
-                                  : Color.fromARGB(255, 46, 46, 46),
+                                  : const Color.fromARGB(255, 46, 46, 46),
                             ),
                           ],
                         ),
@@ -317,24 +315,30 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                   color: Colors.white,
                                   overlay:
                                       const Color.fromARGB(115, 240, 130, 130),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Icon(Icons.arrow_back,
-                                          color: const Color.fromARGB(
-                                              255, 202, 43, 43)),
+                                          color:
+                                              Color.fromARGB(255, 202, 43, 43)),
                                       CostumText(
                                         data: "Back  ",
-                                        color: const Color.fromARGB(
-                                            255, 116, 116, 116),
+                                        color:
+                                            Color.fromARGB(255, 116, 116, 116),
                                       )
                                     ],
                                   ),
                                 ),
                                 MyButton(
-                                  onTap: () {
-                                    updateStatus("Diproses");
+                                  onTap: () async {
+                                    try {
+                                      await StripeService.instance
+                                          .makePayment(total.toInt());
+                                      updateStatus("Diproses");
+                                    } catch (e) {
+                                      log(e.toString());
+                                    }
                                   },
                                   elevation: 0,
                                   height: 60,
@@ -342,20 +346,19 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                   color: const Color(0xffffd500),
                                   overlay:
                                       const Color.fromARGB(115, 228, 216, 58),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       CostumText(
                                         data: "Bayar",
-                                        color: const Color.fromARGB(
-                                            255, 49, 49, 49),
+                                        color: Color.fromARGB(255, 49, 49, 49),
                                       ),
                                       SizedBox(
                                         width: 12,
                                       ),
                                       Icon(Icons.done_all,
-                                          color: const Color.fromARGB(
-                                              255, 65, 65, 65)),
+                                          color:
+                                              Color.fromARGB(255, 65, 65, 65)),
                                     ],
                                   ),
                                 ),
@@ -380,16 +383,16 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                       color: Colors.white,
                                       overlay: const Color.fromARGB(
                                           115, 240, 130, 130),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Icon(Icons.arrow_back,
-                                              color: const Color.fromARGB(
+                                              color: Color.fromARGB(
                                                   255, 202, 43, 43)),
                                           CostumText(
                                             data: "Back  ",
-                                            color: const Color.fromARGB(
+                                            color: Color.fromARGB(
                                                 255, 116, 116, 116),
                                           ),
                                         ],
@@ -406,14 +409,14 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                           255, 59, 240, 74),
                                       overlay: const Color.fromARGB(
                                           115, 228, 216, 58),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           CostumText(
                                             data: " Pesanan diterima",
-                                            color: const Color.fromARGB(
-                                                255, 49, 49, 49),
+                                            color:
+                                                Color.fromARGB(255, 49, 49, 49),
                                           ),
                                           SizedBox(
                                             width: 12,

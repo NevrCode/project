@@ -16,7 +16,7 @@ class _CartPageState extends State<CartPage> {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: CostumText(data: "Cart"),
+        title: const CostumText(data: "Cart"),
       ),
       body: Column(
         children: [

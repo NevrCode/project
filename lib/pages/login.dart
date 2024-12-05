@@ -1,16 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:project/main.dart';
 import 'package:project/pages/index.dart';
 import 'package:project/pages/register.dart';
 import 'package:project/services/auth_provider.dart';
-import 'package:project/services/order_provider.dart';
 import 'package:project/services/shared_preference_service.dart';
 import 'package:project/services/vehicle_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../services/location_provider.dart';
 

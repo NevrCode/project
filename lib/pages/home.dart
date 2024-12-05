@@ -1,12 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:project/main.dart';
-import 'package:project/model/vehicle_model.dart';
-import 'package:project/pages/detail.dart';
 import 'package:project/services/vehicle_provider.dart';
-import 'package:project/util/util.dart';
 import 'package:provider/provider.dart';
 
 import 'component/vehicle_card.dart';
